@@ -12,11 +12,14 @@ export const baseApi = createApi({
       })  
      }) ,
      addTodo:builder.mutation({
-       query:(data)=>({
+       query:(data)=>(
+        console.log('api =>' , data),
+            {
           url:'/task',
           method : 'POST' ,
           body:data
-       })
+       }
+      )
      })
 
    })

@@ -6,6 +6,7 @@ import { Label } from '../ui/label';
 import { FormEvent, useState } from 'react';
 
 import { useAddTodoMutation } from '@/redux/api/api';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 
 
@@ -15,7 +16,12 @@ import { useAddTodoMutation } from '@/redux/api/api';
 const AddTodoModal = () => {
    const [task , setTask] = useState('')
    const [description , setDescription]  = useState('')
-    const [addTodo , {data , isError , isSuccess}] = useAddTodoMutation()   
+  const [addTodo , {data , isError , isSuccess}] = useAddTodoMutation()   
+  const [priority ,setPriority] = useState('')
+
+  
+
+
 
 
 
@@ -27,12 +33,13 @@ const AddTodoModal = () => {
        const taskDeatails = {
           // id:randomString ,
           title:task ,
-          description:description,
-          // priority ,
+          description,
+          isCompleted:false ,
+           priority 
          }
 
        addTodo(taskDeatails)  
-
+        
    }
 
 
@@ -63,6 +70,25 @@ const AddTodoModal = () => {
               defaultValue=" "
               className="col-span-3"
             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="description" className="text-right">
+              Priority
+            </Label>
+            <Select onValueChange={(value)=>setPriority(value)}>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select a range" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectItem value="high">high</SelectItem>
+          <SelectItem value="medium">medium</SelectItem>
+          <SelectItem value="low">low</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+
+           
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="description" className="text-right">
